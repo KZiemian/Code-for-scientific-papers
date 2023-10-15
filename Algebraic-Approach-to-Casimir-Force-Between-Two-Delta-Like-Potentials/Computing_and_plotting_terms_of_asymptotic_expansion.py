@@ -120,8 +120,8 @@ def compute_and_plot_I(gamma0, gammaN, numberOfGammaPoints, nameOfPlot,
     descriptionOfXAxis = r"$\gamma$, range [{}, {}]".format(gamma0,
                                                             gammaN)
     # PL:
-    descriptionOfXAxis = r"$\gamma$, zakres [{}, {}]".format(gamma0,
-                                                            gammaN)
+    # descriptionOfXAxis = r"$\gamma$, zakres [{}, {}]".format(gamma0,
+    #                                                         gammaN)
 
     plt.xlabel(descriptionOfXAxis)
 
@@ -179,9 +179,8 @@ def compute_first_function_value(gamma):
 
 
 
-def compute_and_plot_ration_I(gamma0, gammaN, numberOfGammaPoints,
-                              yPlotMin, yPlotMax, nameOfPlot,
-                              nameOfErrorPlot):
+def compute_and_plot_ratio_I(gamma0, gammaN, numberOfGammaPoints,
+                              yPlotMin, yPlotMax, nameOfPlot):
     """Function computes and plot ratio of first and second term of
     asymptotic expansion presented in the equations (67).
 
@@ -243,18 +242,20 @@ def compute_and_plot_ration_I(gamma0, gammaN, numberOfGammaPoints,
              label=r"$\frac{ I_{ 1 } }{ I_{ 2 } }$")
 
     # EN:
-    descriptionOfXAxis = r"$\gamma$, range [{}, {}]".format(gamma0,
-                                                            gammaN)
+    # descriptionOfXAxis = r"$\gamma$, range [{}, {}]".format(gamma0,
+    #                                                         gammaN)
     # PL:
-    # descriptionOfXAxis = r"$\gamma$, zakres [{}, {}]".format(gamma0,
-    #                                                          gammaN)
+    descriptionOfXAxis = r"$\gamma$, zakres [{}, {}]".format(gamma0,
+                                                             gammaN)
 
     plt.xlabel(descriptionOfXAxis)
 
     # EN:
-    plt.ylabel("Values of numerical errors")
+    # plt.ylabel("Numerical values")
     # PL:
-    # plt.ylabel("Wartości numeryczne błędów")
+    plt.ylabel("Wartości numeryczne")
+
+    plt.set_ylim(yPlotMin, yPlotMax)
 
 
     plt.legend()
@@ -264,28 +265,6 @@ def compute_and_plot_ration_I(gamma0, gammaN, numberOfGammaPoints,
     plt.close()
 
 
-
-    plt.plot(gamma_array, errorFirstTermArray, 'r',
-             label=r"$\Delta I_{ 1 }$")
-    plt.plot(gamma_array, errorSecondTermArray, 'g',
-             label=r"$\Delta I_{ 2 }$")
-    plt.plot(gamma_array, errorThirdTermArray, 'b',
-             label=r"$\Delta I_{ 3 }$")
-    plt.plot(gamma_array, errorFourthTermArray, 'y',
-             label=r"$\Delta I_{ 4 }$")
-
-    plt.xlabel(descriptionOfXAxis)
-
-    # EN:
-    plt.ylabel("Values of numerical errors")
-    # PL:
-    # plt.ylabel("Wartości numeryczne błędów")
-
-    plt.legend()
-
-    plt.savefig(nameOfErrorPlot)
-
-    plt.close()
 
 
 
@@ -310,3 +289,11 @@ def compute_and_plot_ration_I(gamma0, gammaN, numberOfGammaPoints,
 # compute_and_plot_I(gamma0, gammaN, numberOfGammaPoints,
 #                    "Terms_of_asymptotic_expansion_02.png",
 #                    "Terms_of_asymptotic_expansion_errors_02.png")
+
+
+gamma0 = 1.01
+gammaN = 7.0
+numberOfGammaPoints = 1201
+
+compute_and_plot_ratio_I(gamma0, gammaN, numberOfGammaPoints, 0, 4,
+                         "Ratio_of_first_and_second_term.png")
