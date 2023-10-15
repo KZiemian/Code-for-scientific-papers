@@ -1,0 +1,11 @@
+# ignore PNG files
+*.png
+
+# ignore Emacs backup files
+*~
+
+# ignore Emacs auxiliary files
+.#*
+
+# ignore auxiliary (Emacs?) catalogs
+auto/
