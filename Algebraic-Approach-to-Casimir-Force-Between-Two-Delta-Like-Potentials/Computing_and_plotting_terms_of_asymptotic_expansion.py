@@ -23,8 +23,8 @@ import matplotlib.pyplot as plt
 
 
 
-def compute_and_plot_I(gamma0, gammaN, numberOfGammaPoints, nameOfPlot,
-                       nameOfErrorPlot):
+def compute_and_plot_1(gamma0, gammaN, numberOfGammaPoints,
+                       yMinPlot, yMaxPlot, nameOfPlot, nameOfErrorPlot):
     """Function computes and plot values of four terms of asymptotic
     expansion presented in the equations (67) as the functions of
     parameter gamma.
@@ -111,52 +111,58 @@ def compute_and_plot_I(gamma0, gammaN, numberOfGammaPoints, nameOfPlot,
 
 
 
-    plt.plot(gamma_array, firstTermArray, 'r', label=r"$I_{ 1 }$")
-    plt.plot(gamma_array, secondTermArray, 'g', label=r"$I_{ 2 }$")
-    plt.plot(gamma_array, thirdTermArray, 'b', label=r"$I_{ 3 }$")
-    plt.plot(gamma_array, fourthTermArray, 'y', label=r"$I_{ 4 }$")
+    fig, axis1 = plt.subplots()
+
+    axis1.spines[["right", "top"]].set_visible(False)
+
+    axis1.plot(gamma_array, firstTermArray, 'r', label=r"$I_{ 1 }$")
+    axis1.plot(gamma_array, secondTermArray, 'g', label=r"$I_{ 2 }$")
+    axis1.plot(gamma_array, thirdTermArray, 'b', label=r"$I_{ 3 }$")
+    axis1.plot(gamma_array, fourthTermArray, 'y', label=r"$I_{ 4 }$")
+
+    axis1.set_ylim(yMinPlot, yMaxPlot)
 
     # EN:
-    descriptionOfXAxis = r"$\gamma$, range [{}, {}]".format(gamma0,
-                                                            gammaN)
-    # PL:
-    # descriptionOfXAxis = r"$\gamma$, zakres [{}, {}]".format(gamma0,
+    # descriptionOfXAxis = r"$\gamma$, range [{}, {}]".format(gamma0,
     #                                                         gammaN)
+    # PL:
+    descriptionOfXAxis = r"$\gamma$, zakres [{}, {}]".format(gamma0,
+                                                             gammaN)
 
-    plt.xlabel(descriptionOfXAxis)
+    axis1.set_xlabel(descriptionOfXAxis)
 
     # EN:
-    plt.ylabel("Numerical values")
+    # axis1.set_ylabel("Numerical values")
     # PL:
-    # plt.ylabel("Wartości numeryczne")
+    axis1.set_ylabel("Wartości numeryczne")
 
-    plt.legend()
+    axis1.legend()
 
-    plt.savefig(nameOfPlot)
+    fig.savefig(nameOfPlot)
 
-    plt.close()
+    axis1.cla()
 
 
 
-    plt.plot(gamma_array, errorFirstTermArray, 'r',
+    axis1.plot(gamma_array, errorFirstTermArray, 'r',
              label=r"$\Delta I_{ 1 }$")
-    plt.plot(gamma_array, errorSecondTermArray, 'g',
+    axis1.plot(gamma_array, errorSecondTermArray, 'g',
              label=r"$\Delta I_{ 2 }$")
-    plt.plot(gamma_array, errorThirdTermArray, 'b',
+    axis1.plot(gamma_array, errorThirdTermArray, 'b',
              label=r"$\Delta I_{ 3 }$")
-    plt.plot(gamma_array, errorFourthTermArray, 'y',
+    axis1.plot(gamma_array, errorFourthTermArray, 'y',
              label=r"$\Delta I_{ 4 }$")
 
-    plt.xlabel(descriptionOfXAxis)
+    axis1.set_xlabel(descriptionOfXAxis)
 
     # EN:
-    plt.ylabel("Values of numerical errors")
+    # axis1.set_ylabel("Values of numerical errors")
     # PL:
-    # plt.ylabel("Wartości numeryczne błędów")
+    plt.ylabel("Wartości numeryczne błędów")
 
-    plt.legend()
+    axis1.legend()
 
-    plt.savefig(nameOfErrorPlot)
+    fig.savefig(nameOfErrorPlot)
 
     plt.close()
 
@@ -180,7 +186,8 @@ def compute_first_function_value(gamma):
 
 
 
-def compute_and_plot_sum_I(gamma0, gammaN, numberOfGammaPoints, nameOfPlot):
+def compute_and_plot_sum_1(gamma0, gammaN, numberOfGammaPoints,
+                           yMinPlot, yMaxPlot, nameOfPlot):
     """Function computes and plot values of sum of third and fourth
     term of asymptotic expansion presented in the equations (67) as
     the functions of parameter gamma.
@@ -192,19 +199,9 @@ def compute_and_plot_sum_I(gamma0, gammaN, numberOfGammaPoints, nameOfPlot):
     # Values that parameter gamma will take.
     gamma_array = np.linspace(gamma0, gammaN, numberOfGammaPoints)
 
-    # Array for storing the results of computations contains results
-    # Results of evaluation first term
-    # firstTermArray = np.zeros(numberOfGammaPoints)
-    # errorFirstTermArray = np.zeros(numberOfGammaPoints)
-
-    # secondTermArray = np.zeros(numberOfGammaPoints)
-    # errorSecondTermArray = np.zeros(numberOfGammaPoints)
-
     thirdTermArray = np.zeros(numberOfGammaPoints)
-    # errorThirdTermArray = np.zeros(numberOfGammaPoints)
 
     fourthTermArray = np.zeros(numberOfGammaPoints)
-    # errorFourthTermArray = np.zeros(numberOfGammaPoints)
 
     # Line below is only a reminder to the reader.
     # sumArray = np.zeros(numberOfGammaPoints)
@@ -225,7 +222,6 @@ def compute_and_plot_sum_I(gamma0, gammaN, numberOfGammaPoints, nameOfPlot):
         resultAndError = integrate.quad(I_3, 0, np.inf)
 
         thirdTermArray[i] = 2 * resultAndError[0] / gamma
-        # errorThirdTermArray[i] = 2* resultAndError[1] / gamma
 
 
 
@@ -237,67 +233,46 @@ def compute_and_plot_sum_I(gamma0, gammaN, numberOfGammaPoints, nameOfPlot):
         resultAndError = integrate.quad(I_4, 0, np.inf)
 
         fourthTermArray[i] = resultAndError[0] / gamma
-        # errorFourthTermArray[i] = resultAndError[1] / gamma
+
 
 
     sumArray = -thirdTermArray + fourthTermArray
 
+    fig, axis1 = plt.subplots()
 
-    # plt.plot(gamma_array, firstTermArray, 'r', label=r"$I_{ 1 }$")
-    # plt.plot(gamma_array, secondTermArray, 'g', label=r"$I_{ 2 }$")
-    plt.plot(gamma_array, sumArray, 'b', label=r"$-I_{ 3 } + I_{ 4 }$")
-    # plt.plot(gamma_array, fourthTermArray, 'y', label=r"$I_{ 4 }$")
+    axis1.spines[["right", "top"]].set_visible(False)
+
+
+    axis1.plot(gamma_array, sumArray, 'b', label=r"$-I_{ 3 } + I_{ 4 }$")
+
+    axis1.set_ylim(yMinPlot, yMaxPlot)
 
     # EN:
     # descriptionOfXAxis = r"$\gamma$, range [{}, {}]".format(gamma0,
     #                                                         gammaN)
     # PL:
     descriptionOfXAxis = r"$\gamma$, zakres [{}, {}]".format(gamma0,
-                                                            gammaN)
+                                                             gammaN)
 
-    plt.xlabel(descriptionOfXAxis)
+    axis1.set_xlabel(descriptionOfXAxis)
 
     # EN:
-    plt.ylabel("Numerical values")
+    # plt.ylabel("Numerical values")
     # PL:
-    # plt.ylabel("Wartości numeryczne")
+    axis1.set_ylabel("Wartości numeryczne")
 
-    plt.legend()
+    axis1.legend()
 
-    plt.savefig(nameOfPlot)
+    fig.savefig(nameOfPlot)
 
-    plt.close()
-
-
-
-    # plt.plot(gamma_array, errorFirstTermArray, 'r',
-    #          label=r"$\Delta I_{ 1 }$")
-    # plt.plot(gamma_array, errorSecondTermArray, 'g',
-    #          label=r"$\Delta I_{ 2 }$")
-    # plt.plot(gamma_array, errorThirdTermArray, 'b',
-    #          label=r"$\Delta I_{ 3 }$")
-    # plt.plot(gamma_array, errorFourthTermArray, 'y',
-    #          label=r"$\Delta I_{ 4 }$")
-
-    # plt.xlabel(descriptionOfXAxis)
-
-    # # EN:
-    # plt.ylabel("Values of numerical errors")
-    # # PL:
-    # # plt.ylabel("Wartości numeryczne błędów")
-
-    # plt.legend()
-
-    # plt.savefig(nameOfErrorPlot)
-
-    # plt.close()
+    axis1.cla()
 
 
 
 
 
-def compute_and_plot_ratio_I(gamma0, gammaN, numberOfGammaPoints,
-                              yPlotMin, yPlotMax, nameOfPlot):
+def compute_and_plot_ratio_1(gamma0, gammaN, numberOfGammaPoints,
+                             yPlotMin, yPlotMax, nameOfPlot):
     """Function computes and plot ratio of first and second term of
     asymptotic expansion presented in the equations (67).
 
@@ -317,12 +292,6 @@ def compute_and_plot_ratio_I(gamma0, gammaN, numberOfGammaPoints,
     secondTermArray = np.zeros(numberOfGammaPoints)
     errorSecondTermArray = np.zeros(numberOfGammaPoints)
 
-    # Line below is only a reminder to the reader.
-    # ratioExpressionArray = np.zeros(numberOfGammaPoints)
-
-    # Method quad returns tuple so this is fiting.
-    resultAndError = (0, 0)
-
 
 
     # Loop for computing integrals for various values of gamma
@@ -336,7 +305,6 @@ def compute_and_plot_ratio_I(gamma0, gammaN, numberOfGammaPoints,
         resultAndError = integrate.quad(I_1, 0, np.inf)
 
         firstTermArray[i] = resultAndError[0]
-        # errorFirstTermArray[i] = resultAndError[1]
 
 
         # Second function to integrate
@@ -350,7 +318,7 @@ def compute_and_plot_ratio_I(gamma0, gammaN, numberOfGammaPoints,
         resultAndError = integrate.quad(I_2, 0, np.inf)
 
         secondTermArray[i] = resultAndError[0] / gamma
-        # errorSecondTermArray[i] = resultAndError[1] / gamma
+
 
 
     ratioExpressionArray = firstTermArray / secondTermArray
@@ -394,12 +362,12 @@ gamma0 = 1.1
 gammaN = 7.0
 numberOfGammaPoints = 1401
 
-compute_and_plot_sum_I(gamma0, gammaN, numberOfGammaPoints,
-                       "Sum_of_third_and_fourth_term_01.png")
+compute_and_plot_1(gamma0, gammaN, numberOfGammaPoints, 0, 0.4,
+                   "Terms_of_asymptotic_expansion_01.png",
+                   "Terms_of_asymptotic_expansion_errors_01.png")
 
-# compute_and_plot_I(gamma0, gammaN, numberOfGammaPoints,
-#                    "Terms_of_asymptotic_expansion_01.png",
-#                    "Terms_of_asymptotic_expansion_errors_01.png")
+compute_and_plot_sum_1(gamma0, gammaN, numberOfGammaPoints, 0, 0.25,
+                       "Sum_of_third_and_fourth_term_01.png")
 
 
 
@@ -407,19 +375,20 @@ gamma0 = 1.01
 gammaN = 1.1
 numberOfGammaPoints = 200
 
-compute_and_plot_sum_I(gamma0, gammaN, numberOfGammaPoints,
+compute_and_plot_1(gamma0, gammaN, numberOfGammaPoints, 0, 0.95,
+                   "Terms_of_asymptotic_expansion_02.png",
+                   "Terms_of_asymptotic_expansion_errors_02.png")
+
+compute_and_plot_sum_1(gamma0, gammaN, numberOfGammaPoints, 0, 0.75,
                        "Sum_of_third_and_fourth_term_02.png")
 
-# compute_and_plot_I(gamma0, gammaN, numberOfGammaPoints,
-#                    "Terms_of_asymptotic_expansion_02.png",
-#                    "Terms_of_asymptotic_expansion_errors_02.png")
 
 
 gamma0 = 1.01
 gammaN = 7.0
 numberOfGammaPoints = 1201
 
-compute_and_plot_ratio_I(gamma0, gammaN, numberOfGammaPoints, 0, 50,
+compute_and_plot_ratio_1(gamma0, gammaN, numberOfGammaPoints, 0, 50,
                          "Ratio_of_first_and_second_term.png")
 
 # Ration min: 7.12.
