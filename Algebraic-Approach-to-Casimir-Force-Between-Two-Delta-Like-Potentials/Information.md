@@ -1,4 +1,4 @@
-### Code for numerical computation used in article **Algebraic Approach to Casimir Force Between Two $\delta$-like Potentials** by Kamil Ziemian
+### Code for numerical computation used in article *Algebraic Approach to Casimir Force Between Two $\delta$-like Potentials* by Kamil Ziemian
 
 Bibliographical information of the article.
 Ann. Henri Poincaré 22 (2021), 1751–1781, published online March 20, 2021,
