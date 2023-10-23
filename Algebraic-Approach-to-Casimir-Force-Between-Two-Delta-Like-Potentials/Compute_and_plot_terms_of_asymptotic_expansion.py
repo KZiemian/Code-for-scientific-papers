@@ -2,10 +2,11 @@
 
 
 ##############################
-# Computing and drawing terms of asymptotic expanisons of energy.
-# Equation (67) in https://doi.org/10.1007/s00023-020-00994-2
+# The script for computing and drawing terms of asymptotic expanisons
+# of Casimir energy, equation (67) in paper
+# https://doi.org/10.1007/s00023-020-00994-2
 
-# Computation were made for Python 3????
+# Computation were made in Python 3.10.12???
 ##############################
 
 
@@ -37,7 +38,7 @@ def compute_and_plot_1(gamma0, gammaN, numberOfGammaPoints,
     # Values that parameter gamma will take.
     gamma_array = np.linspace(gamma0, gammaN, numberOfGammaPoints)
 
-    # Array for storing the results of computations contains results
+    # Array for storing the results of computations.
     # Results of evaluation first term
     firstTermArray = np.zeros(numberOfGammaPoints)
     errorFirstTermArray = np.zeros(numberOfGammaPoints)
@@ -56,7 +57,7 @@ def compute_and_plot_1(gamma0, gammaN, numberOfGammaPoints,
 
 
 
-    # Loop for computing integrals for various values of gamma
+    # Loop for computing values of functions for various values of gamma
     for i, gamma in enumerate(gamma_array):
         # First function to integrate
         I_1 = lambda l: \
@@ -211,7 +212,7 @@ def compute_and_plot_sum_1(gamma0, gammaN, numberOfGammaPoints,
 
 
 
-    # Loop for computing integrals for various values of gamma
+    # Loop for computing values of functions for various values of gamma
     for i, gamma in enumerate(gamma_array):
         # Third function to integrate
         I_3 = lambda l: \
@@ -294,7 +295,7 @@ def compute_and_plot_ratio_1(gamma0, gammaN, numberOfGammaPoints,
 
 
 
-    # Loop for computing integrals for various values of gamma
+    # Loop for computing values of functions for various values of gamma
     for i, gamma in enumerate(gamma_array):
         # First function to integrate
         I_1 = lambda l: \
