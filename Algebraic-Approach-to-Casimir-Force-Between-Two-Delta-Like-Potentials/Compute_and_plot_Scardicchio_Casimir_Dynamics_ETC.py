@@ -71,24 +71,24 @@ def compute_and_plot_1(gamma0, gammaN, numberOfGammaPoints,
     axis1.spines[["right", "top"]].set_visible(False)
 
     axis1.plot(gamma_array, funValuesArray, 'b',
-               label=r"$I_{ \, \text{Sca} }$")
+               label=r"$E_{ \, \text{Sca} }$")
 
 
     axis1.set_ylim(yMinPlot, yMaxPlot)
 
     # EN:
-    # descriptionOfXAxis = r"$\gamma$, range [{}, {}]".format(gamma0,
-    #                                                         gammaN)
+    descriptionOfXAxis = r"$\gamma$, range [{}, {}]".format(gamma0,
+                                                            gammaN)
     # PL:
-    descriptionOfXAxis = r"$\gamma$, zakres [{}, {}]".format(gamma0,
-                                                             gammaN)
+    # descriptionOfXAxis = r"$\gamma$, zakres [{}, {}]".format(gamma0,
+    #                                                          gammaN)
 
     axis1.set_xlabel(descriptionOfXAxis)
 
     # EN:
-    # axis1.set_ylabel("Numerical values")
+    axis1.set_ylabel("Numerical values")
     # PL:
-    axis1.set_ylabel("Wartości numeryczne")
+    # axis1.set_ylabel("Wartości numeryczne")
 
     axis1.legend(loc="lower right")
 
@@ -99,14 +99,14 @@ def compute_and_plot_1(gamma0, gammaN, numberOfGammaPoints,
 
 
     axis1.plot(gamma_array, errorValuesArray, 'r',
-             label=r"$\Delta I_{ \, \text{Sca} }$")
+             label=r"$\Delta E_{ \, \text{Sca} }$")
 
     axis1.set_xlabel(descriptionOfXAxis)
 
     # EN:
-    # axis1.set_ylabel("Values of numerical errors")
+    axis1.set_ylabel("Values of numerical errors")
     # PL:
-    plt.ylabel("Wartości numeryczne błędów")
+    # plt.ylabel("Wartości numeryczne błędów")
 
     axis1.legend()
 
